@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-md-8 col-md-offset-2 well">
+    <h1>{{ tag.name}}</h1>
+    <hr class="style-two">
+    {% for post in posts %}
+    <div class="well">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ post.title }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            {{ post.text }}
+                <a href="{{url_for('post', post_id=post.id)}}">Read More</a>
+            </div>
+        </div>
+        <p class="info">published: {{ post.publish_date }} | by: {{ post.user_id }} </p>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-2">
+        <div class="new"><a href="{{url_for('create')}}"><span class="glyphicon glyphicon-plus"></span>New Post</a></div>
+        {% for post in posts.items %}
+        <div class="well">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>{{ post.title }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                {{ post.text | truncate(100) }}
+                    <a href="{{url_for('post', post_id=post.id)}}">Read More</a>
+                </div>
+            </div>
+            <p class="info">published: {{ post.publish_date }} | by: {{ post.user_id.username }} </p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-2 pull-right">
+        <div class="row">
+            <h5>Recent Posts</h5>
+            <ul>
+            {% for post in recent %}
+                <li><a href="{{url_for('post', post_id=post.id)}}">{{ post.title }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="row">
+            <h5>Popular Tags</h5>
+            <ul>
+            {% for tag in top_tags %}
+                <li><a href="{{ url_for('tag', name=tag[0].name)}}">{{ tag[0].name }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

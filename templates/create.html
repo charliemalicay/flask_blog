@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-md-8 col-md-offset-2 well">
+    <h1>New Post:</h1>
+    <form method="POST" action="{{ url_for('create') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.title.label }}
+            {% if form.title.errors %}
+                {% for e in form.title.errors %}
+                    <p class="help-block">{{ e }}</p>
+                {% endfor %}
+            {% endif %}
+            {{ form.title(class_='form-control') }}
+        </div>
+        <div class="form-group">
+            {{ form.text.label }}
+            {% if form.text.errors %}
+                {% for e in form.text.errors %}
+                    <p class="help-block">{{ e }}</p>
+                {% endfor %}
+            {% endif %}
+            {{ form.text(class_='form-control') }}
+        </div>
+        <input class="btn btn-primary" type="submit" value="New Post">
+    </form>
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+
+    <title>{% block title %}Codeventuri Blog{% endblock title %}</title>
+
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+  </head>
+  <body>
+
+  {% macro render_pagination(pagination, endpoint) %}
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="{{ url_for('home', page=pagination.prev().page)}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% for page in pagination.iter_pages() %}
+                {% if page %}
+                    {% if page != pagination.page %}
+                        <li>
+                            <a href="{{ url_for(endpoint, page=page) }}">{{ page }}</a>
+                        </li>
+                    {% else %}
+                        <li><a href="">{{ page }}</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a>...</a><li>
+                {% endif %}
+            {% endfor %}
+            <li>
+                <a href="{{ url_for('home', page=pagination.next().page)}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+         </ul>
+    </nav>
+    {% endmacro %}
+
+    <div class="page-header">
+      <div class="register"><a href="{{url_for('register')}}"><span class="glyphicon glyphicon-new-window"></span>Register</a></div>
+      <h1><a href="/">Codevenuri Blog</a></h1>
+    </div>
+
+    <div class="content container">
+      <div class="row">
+          <div class="col-md-12">
+          {% block content %}
+          {% endblock content %}
+          </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ url_for('static', filename='js/jquery-1.12.1.min.js')}}">></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}">></script>
+
+  </body>
+</html>
